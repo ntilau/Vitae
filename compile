@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Compile script for generating PDF CV and cover letter from Markdown sources
+# Requires pandoc and WeasyPrint
+
+set -euo pipefail
+
+CV_SRC="CV.md"
+CL_SRC="CL.md"
+CV_OUT="CV.pdf"
+CL_OUT="CL.pdf"
+PANDOC_ARGS=(-f markdown+autolink_bare_uris --pdf-engine=weasyprint -c pdf.css)
+
+usage() {
+    echo "Usage: $0 [clean]"
+    echo
+    echo "  (no args)  Build CV.pdf and CL.pdf from Markdown sources"
+    echo "  clean      Remove generated PDFs"
+}
+
+check_deps() {
+    local missing=0
+    if ! command -v pandoc >/dev/null 2>&1; then
+        echo "✗ pandoc not found"
+        echo "  Install with: brew install pandoc"
+        missing=1
+    fi
+    if ! command -v weasyprint >/dev/null 2>&1; then
+        echo "✗ weasyprint not found"
+        echo "  Install with: pip install weasyprint (or: brew install weasyprint)"
+        missing=1
+    fi
+    if [[ $missing -eq 1 ]]; then
+        echo
+        echo "Missing dependencies. Please install the above and re-run."
+        exit 1
+    fi
+}
+
+build() {
+    echo "Building $CV_OUT from $CV_SRC..."
+    pandoc "$CV_SRC" "${PANDOC_ARGS[@]}" -o "$CV_OUT"
+    echo "Building $CL_OUT from $CL_SRC..."
+    pandoc "$CL_SRC" "${PANDOC_ARGS[@]}" -o "$CL_OUT"
+    echo "Done."
+}
+
+main() {
+    case "${1:-}" in
+        clean)
+            rm -f "$CV_OUT" "$CL_OUT"
+            echo "Cleaned generated PDFs."
+            ;;
+        "")
+            check_deps
+            build
+            ;;
+        *)
+            usage
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"

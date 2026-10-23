@@ -1,0 +1,38 @@
+name: Generate PDF CV and Cover Letter
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'CV.md'
+      - 'CL.md'
+
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'CV.md'
+      - 'CL.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Pandoc and WeasyPrint
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y pandoc
+        pip install weasyprint
+
+    - name: Generate PDFs
+      run: ./compile
+
+    - name: Upload PDF artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: generated-pdfs
+        path: |
+          CV.pdf
+          CL.pdf
