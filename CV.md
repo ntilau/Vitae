@@ -133,6 +133,7 @@ Principal R&D/Product Development Engineer with 15+ years experience in signal i
 - Erasmus Placement at Lehrstuhl für Theoretische Elektrotechnik, Universität des Saarlandes
 
 **Bachelor's, Electronics Engineering** | Università degli Studi di Firenze | *01/2003 -- 04/2008*
+
 **High School Diploma** | École Autonome Belge à Bujumbura | *09/1996 -- 06/2002* | Bujumbura, Burundi
 
 ---
