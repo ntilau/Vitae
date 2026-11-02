@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Check dependencies for Vitae PDF generation: pandoc and WeasyPrint
+
+set -euo pipefail
+
+echo "Checking dependencies for Vitae PDF generation..."
+
+# Check pandoc
+if command -v pandoc >/dev/null 2>&1; then
+    PANDOC_VERSION=$(pandoc --version | head -n1)
+    echo "✓ pandoc found: $PANDOC_VERSION"
+else
+    echo "✗ pandoc not found"
+    echo "  Install with: brew install pandoc"
+fi
+
+# Check for WeasyPrint (HTML to PDF engine, replaces LaTeX)
+if command -v weasyprint >/dev/null 2>&1; then
+    echo "✓ weasyprint found: $(weasyprint --version 2>/dev/null | head -n1)"
+else
+    echo "✗ weasyprint not found"
+    echo "  Install with: pip install weasyprint"
+    echo "  (or: brew install weasyprint)"
+fi
+
+echo
+if command -v pandoc >/dev/null 2>&1 && command -v weasyprint >/dev/null 2>&1; then
+    echo "All dependencies satisfied. You can run 'make' to generate PDFs."
+else
+    echo "Missing dependencies. Please install the above and re-run this script."
+fi
