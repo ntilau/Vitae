@@ -14,7 +14,7 @@ Principal R&D/Product Development Engineer with 15+ years experience in signal i
 
 ## Experience
 
-### **Sr. Engineer - Design Enablement** (Electromagnetic Flow Developer and Modelling Engineer, Grade G3)
+### **Sr. Engineer - Design Enablement**
 **NXP Semiconductors** | *03/2022 -- Present* | Eindhoven, Netherlands
 
 - Developed Ansys Electronics Design Synchronization Plugin, reducing cost of ownership and improving version control traceability (4/5 customer satisfaction from RFP stakeholders)
